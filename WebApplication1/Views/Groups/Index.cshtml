@@ -1,0 +1,95 @@
+﻿@model IEnumerable<WebApplication1.Models.Group>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Groups</h1>
+
+<!-- Search Form -->
+<form method="get" action="@Url.Action("Index", "Groups")" class="mb-3">
+    <div class="form-group">
+        <label for="searchQuery">Search Groups:</label>
+        <input type="text" id="searchQuery" name="searchQuery" class="form-control" value="@ViewBag.SearchQuery" placeholder="Search by name or description" />
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
+</p>
+
+<!-- Groups Table -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@(ViewBag.SortOrder == "name_desc" ? "name" : "name_desc")">
+                    Group Name @(ViewBag.SortOrder == "name" ? "▲" : ViewBag.SortOrder == "name_desc" ? "▼" : "")
+                </a>
+            </th>
+            <th>User</th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@(ViewBag.SortOrder == "date_desc" ? "date" : "date_desc")">
+                    Creation Date @(ViewBag.SortOrder == "date" ? "▲" : ViewBag.SortOrder == "date_desc" ? "▼" : "")
+                </a>
+            </th>
+            <th>Description</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.Any())
+        {
+            <tr>
+                <td colspan="5" class="text-center">No groups found.</td>
+            </tr>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.GroupName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.User.Email)</td>
+                    
+                    <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.GroupId" class="btn btn-sm btn-warning">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.GroupId" class="btn btn-sm btn-info">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.GroupId" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<!-- Pagination Controls -->
+@if (ViewBag.TotalPages > 1)
+{
+    <nav>
+        <ul class="pagination">
+            @if (ViewBag.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-action="Index" asp-route-page="@(ViewBag.CurrentPage - 1)" asp-route-searchQuery="@ViewBag.SearchQuery" asp-route-sortOrder="@ViewBag.SortOrder">Previous</a>
+                </li>
+            }
+
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                    <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-searchQuery="@ViewBag.SearchQuery" asp-route-sortOrder="@ViewBag.SortOrder">@i</a>
+                </li>
+            }
+
+            @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-action="Index" asp-route-page="@(ViewBag.CurrentPage + 1)" asp-route-searchQuery="@ViewBag.SearchQuery" asp-route-sortOrder="@ViewBag.SortOrder">Next</a>
+                </li>
+            }
+        </ul>
+    </nav>
+}

@@ -1,0 +1,73 @@
+﻿@model WebApplication1.Models.Route
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Route</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="RouteId" />
+            <div class="form-group">
+                <label asp-for="RouteName" class="control-label"></label>
+                <input asp-for="RouteName" class="form-control" />
+                <span asp-validation-for="RouteName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDestinationId" class="control-label"></label>
+                <select asp-for="StartDestinationId" class="form-control" asp-items="ViewBag.StartDestinationId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDestinationId" class="control-label"></label>
+                <select asp-for="EndDestinationId" class="form-control" asp-items="ViewBag.EndDestinationId"></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="StartLongitude" class="control-label"></label>
+                <input asp-for="StartLongitude" class="form-control" type="number" />
+                <span asp-validation-for="StartLongitude" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartLatitude" class="control-label"></label>
+                <input asp-for="StartLatitude" class="form-control" type="number" />
+                <span asp-validation-for="StartLatitude" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndLongitude" class="control-label"></label>
+                <input asp-for="EndLongitude" class="form-control" type="number" />
+                <span asp-validation-for="EndLongitude" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EndLatitude" class="control-label"></label>
+                <input asp-for="EndLatitude" class="form-control" type="number" />
+                <span asp-validation-for="EndLatitude" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

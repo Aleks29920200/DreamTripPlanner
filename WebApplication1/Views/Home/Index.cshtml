@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Tourist Paths in Bulgaria";
+}
+
+@if (User.IsInRole("User"))
+{
+    <h2>Tourist Paths in Bulgaria</h2>
+
+    <!-- Notification -->
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Message"]
+        </div>
+    }
+
+    <!-- Map Container -->
+    <div id="map" style="height: 500px; width: 100%;"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <script>
+       
+        var map = L.map('map').setView([42.7339, 25.4858], 7); 
+
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        
+        var paths = [];
+
+        fetch('/Home/GetAllRoutes') 
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch paths: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(paths => {
+                
+                paths.forEach(function (path) {
+                    if (path.coordinates && path.coordinates.length > 1) {
+                        var polyline = L.polyline(path.coordinates, { color: 'blue' }).addTo(map);
+                        polyline.bindPopup(`<b>${path.name}</b>`);
+                    }
+                });
+            })
+            .catch(error => {
+                console.error("Error loading paths:", error);
+            });
+
+        
+        
+    </script>
+}

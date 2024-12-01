@@ -1,0 +1,72 @@
+﻿@model WebApplication1.Models.Route
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Route</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RouteName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RouteName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.User)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.StartDestination)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StartDestination)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EndDestination)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EndDestination)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.StartLongitude)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StartLongitude)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.StartLatitude)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StartLatitude)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EndLongitude)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EndLongitude)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EndLatitude)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EndLatitude)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.RouteId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
