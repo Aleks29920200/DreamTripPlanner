@@ -11,11 +11,11 @@ pool:
 
 variables:
 - name: myVariable
-  value: ''
+  value: 'myVariable'
 
 steps:
 - script: echo 'Validate required variable!'
-  condition: eq(variables['myVariable'], 'myRequiredValue')
+  condition: eq(variables['myVariable'], 'myVariable')
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
