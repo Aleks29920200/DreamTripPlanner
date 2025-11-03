@@ -9,9 +9,13 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+- name: myVariable
+  value: ''
+
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- script: echo 'Validate required variable!'
+  condition: eq(variables['myVariable'], 'myRequiredValue')
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
