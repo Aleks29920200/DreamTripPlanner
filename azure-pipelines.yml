@@ -1,23 +1,36 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
-trigger:
-- main
-
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'windows-latest'
 
 variables:
-- name: myVariable
-  value: 'myVariable'
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  NUGET_PACKAGES: $(Pipeline.Workspace)/.nuget/packages
 
 steps:
-- script: echo 'Validate required variable!'
-  condition: eq(variables['myVariable'], 'myVariable')
+- task: NuGetToolInstaller@1
+  displayName: 'NuGet tool installer'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: Cache@2
+  displayName: 'NuGet Cache'
+  inputs:
+    key: 'nuget | "$(Agent.OS)" | **/packages.lock.json,!**/bin/**,!**/obj/**'
+    restoreKeys: |
+       nuget | "$(Agent.OS)"
+       nuget
+    path: '$(NUGET_PACKAGES)'
+    cacheHitVar: 'CACHE_RESTORED'
+
+- task: NuGetCommand@2
+  displayName: 'NuGet restore'
+  condition: ne(variables.CACHE_RESTORED, true)
+  inputs:
+    command: 'restore'
+    restoreSolution: '$(solution)'
+
+- task: VSBuild@1
+  displayName: 'Visual Studio Build'
+  inputs:
+    solution: '$(solution)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
