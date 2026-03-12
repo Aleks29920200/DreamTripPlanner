@@ -1,88 +1,64 @@
-✈️ Dream Trip Planner Web Application
-A full-stack Java web application built with Spring Boot, designed to help users organize, discover, and plan their ultimate travel destinations. This project showcases practical implementation of Spring MVC, relational database mapping, and secure user session management.
+✈️ Dream Trip Planner
+A full-stack web application built with C# and ASP.NET Core, designed to help users organize, discover, and plan their ultimate travel destinations. This project demonstrates proficiency in the .NET ecosystem, the MVC design pattern, and automated CI/CD workflows.
 
 🚀 Key Features
-User Authentication: * Secure Registration and Login system with password hashing.
+Trip Organization: Plan and manage travel itineraries, destinations, and dates.
 
-Route protection ensuring only logged-in users can create or modify trips.
+User Interface: Responsive front-end built with HTML, CSS, and vanilla JavaScript, integrated directly into the ASP.NET views.
 
-Trip Management:
+Continuous Integration / Continuous Deployment (CI/CD): * Fully configured for automated builds and testing using Azure Pipelines (azure-pipelines.yml).
 
-Users can add new dream trips, specifying details such as Destination, Description, Departure Date, and Category.
-
-Trips are logically categorized (e.g., Beach, Mountain, City Break, Cultural).
-
-Interactive Dashboard:
-
-A dynamic home page displaying all shared trips from the community.
-
-Users can view trip details, track estimated costs, or save specific itineraries to their personal list.
-
-Personalized Collection:
-
-A dedicated section where users can view the trips they have personally added or planned.
-
-Functionality to remove or mark trips as "Completed".
-
-Database Seeding: * Automatically initializes the database with required categories and roles upon the first application startup.
+Ensures code quality and seamless deployment workflows.
 
 🛠️ Technical Stack
-Backend: Java 11/17+, Spring Boot
+Backend Language: C# (60.6%)
 
-Data Access: Spring Data JPA, Hibernate, MySQL
+Framework: ASP.NET Core MVC (Web Application)
 
-Template Engine: Thymeleaf, HTML5, CSS3, Bootstrap
+Frontend: HTML5 (37.1%), CSS3 (2.2%), JavaScript (0.1%)
 
-Validation: Hibernate Validator (JSR 380 / Bean Validation)
+IDE/Tooling: Visual Studio (.sln and .vs structure)
 
-Security: Custom Session-based Interceptors for user state management
+DevOps / CI/CD: Azure DevOps / Azure Pipelines
 
 🏗️ Architecture
-The application strictly adheres to a Layered MVC Architecture to ensure clean separation of concerns and maintainability:
+This project follows the standard ASP.NET Core MVC (Model-View-Controller) architecture:
 
-web (Controllers): Handles incoming HTTP requests, binds form data, and returns the appropriate Thymeleaf views.
+Models: C# classes representing the data domain (e.g., Trips, Destinations).
 
-service: Contains the core business logic, mapping between database entities and front-end Data Transfer Objects (DTOs).
+Views: Razor syntax (.cshtml) / HTML files responsible for rendering the UI and presenting data to the user.
 
-repository: Interfaces extending JpaRepository for seamless, boilerplate-free database CRUD operations.
+Controllers: C# classes that handle incoming HTTP requests, process user input, interact with data models, and return the appropriate views.
 
-model:
+🔧 Setup & Local Development
+To run this project locally, you will need Visual Studio (or Visual Studio Code with the C# Dev Kit) and the .NET SDK.
 
-Entities: Java classes mapped directly to MySQL tables (User, Trip, Category).
-
-BindingModels: Objects used to capture and validate user input from HTML forms.
-
-ViewModels: Objects formatted specifically for rendering data securely on the front end.
-
-init: CommandLineRunner components used for initial database seeding.
-
-🔧 Setup & Installation
 Clone the repository:
 
 Bash
 git clone https://github.com/Aleks29920200/DreamTripPlanner.git
 cd DreamTripPlanner
-Configure the Database:
+Open the Solution:
 
-Open your MySQL environment and create a schema named dream_trip_planner (or the name specified in your properties).
+Double-click the DreamTripPlanner.sln file to open the project in Visual Studio.
 
-Open src/main/resources/application.properties.
+Restore Dependencies:
 
-Update spring.datasource.username and spring.datasource.password with your local MySQL credentials.
-
-Build and Run:
-
-Run the application via your preferred IDE (IntelliJ IDEA / Eclipse) or use the Maven wrapper in the terminal:
+Visual Studio should automatically restore the required NuGet packages. If using the .NET CLI, run:
 
 Bash
-mvn spring-boot:run
+dotnet restore
+Build and Run:
+
+Press F5 or click the Start button in Visual Studio to launch the application with the debugger attached.
+
+Alternatively, via the .NET CLI:
+
+Bash
+dotnet run --project WebApplication1
 Access the application:
 
-Open your web browser and navigate to http://localhost:8080.
+The application will launch in your default web browser (typically at https://localhost:5001 or http://localhost:5000).
 
-📋 Data Constraints & Validation
-Trips: Destination names must meet minimum length requirements. Departure dates cannot be in the past.
-
-Categories: Selected from a predefined, seeded list ensuring data consistency.
-
-Users: Must provide unique usernames and valid email formats during registration.
+☁️ Azure Pipelines Configuration
+This repository includes several YAML files (e.g., azure-pipelines.yml, azure-pipelines-1.yml) to support Azure DevOps automation. These pipelines are configured to automatically build the .NET solution, run tests, and prepare artifacts whenever new code is pushed to the repository.
